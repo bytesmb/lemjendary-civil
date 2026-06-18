@@ -381,12 +381,12 @@
 
         async function submitConfirmation(name) {
             try {
-                const response = await fetch(CONFIRM_URL, {
+                await fetch(CONFIRM_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, action: 'confirm' })
                 });
-                if (!response.ok) throw new Error(`Confirm request failed (${response.status})`);
             } catch (error) {
                 console.error(error);
             }
