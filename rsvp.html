@@ -125,7 +125,7 @@
   </div>
 </header>
 <!-- Main Content Canvas -->
-<main class="flex-grow flex flex-col items-center pt-24 px-8 pb-page-margin max-w-md mx-auto w-full"><div class="w-full flex justify-start mb-4"><a href="index.html" class="font-body-invitation text-sm text-forest flex items-center h-[48px] hover:opacity-80 transition-opacity"><svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="#4A6741" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg><span class="">Back</span></a></div>
+<main class="flex-grow flex flex-col items-center pt-24 px-8 pb-6 max-w-md mx-auto w-full"><div class="w-full flex justify-start mb-4"><a href="index.html" class="font-body-invitation text-sm text-forest flex items-center h-[48px] hover:opacity-80 transition-opacity"><svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="#4A6741" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg><span class="">Back</span></a></div>
 <!-- Typography Section -->
 <div class="text-center mb-5">
 <h1 class="font-display-names-mobile text-display-names-mobile text-forest">Who's joining us?</h1>
@@ -157,20 +157,13 @@
 <div class="mt-6 text-center space-y-1">
   <p class="font-body-invitation text-sm text-on-surface-variant opacity-80">Have a question or need to make changes?</p>
   <p class="font-body-invitation text-sm text-on-surface-variant opacity-80">We're just one message away.</p>
-</div><div class="w-full mt-12 space-y-8">
-  <div class="w-full h-px bg-flax/40"></div>
-  
-  <div class="space-y-4">
-    <h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase text-center">Warm wishes &amp; words that will make us cry</h2>
-    <textarea class="w-full min-h-[120px] bg-linen border border-flax rounded-lg p-4 text-on-surface font-body-invitation focus:ring-1 focus:ring-forest focus:border-forest outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="Say anything. We mean it."></textarea>
-    <button class="w-full h-[52px] bg-forest text-parchment font-button-text text-button-text rounded-lg uppercase transition-all duration-300 hover:opacity-90 active:scale-[0.98]">
-      Leave a Note
-    </button>
-    <p class="font-body-invitation text-sm text-on-surface-variant opacity-70 text-center pt-1">
-    This is completely optional — skip anytime.
-  </p>
-  </div>
-</div></main>
+</div>
+<div class="w-full h-px bg-flax/50 mt-8"></div>
+<div class="w-full mt-6 space-y-4">
+  <p class="font-body-invitation text-sm text-on-surface-variant opacity-80 italic text-center">P.S. We'd love a note from you.</p>
+  <a href="message.html" class="flex items-center justify-center w-full h-[52px] border-2 border-[#4A6741] bg-transparent text-[#4A6741] font-button-text text-button-text uppercase tracking-widest rounded transition-all active:scale-95">Write us a note</a>
+</div>
+</main>
 <!-- Success Toast Notification -->
 <div class="fixed top-[-100px] left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-[#5C7A52] text-on-primary py-4 px-6 rounded-xl shadow-2xl flex items-center justify-between z-[100] transition-all duration-500 ease-out" id="success-toast">
 <span class="font-body-invitation text-sm">You're confirmed! We can't wait to see you. 🌿</span>
@@ -181,7 +174,7 @@
 <!-- JavaScript Logic -->
 <script>
         const GUEST_LIST_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSqoPGhvujDRoOA3ZMWTJIhyIyri0_01jUJwIOqLQh3phSLv_DbIWyb86vmNxABZVFaXBm3NyabJWW1/pub?gid=0&single=true&output=csv';
-        const CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbydgpVAh2QPEnX3hAvs7ly2CORL9o7v8YLIGa5JFEFlNKmzU-3xL1bF2paZqM47D3mT/exec';
+        const CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbyb5Q9N_ATmllgKffb1u30giFm-UkO6-gqiEDI-EKqoCEKrV_RY9KRJjXOGy-NfZI_7/exec';
 
         let guestNames = [];
         let guestListLoaded = false;

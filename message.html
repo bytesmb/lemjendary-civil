@@ -133,7 +133,7 @@
     <p class="font-body-invitation text-on-surface-variant text-base opacity-80 mb-10">Say the thing you'd whisper at the reception.</p>
     </section>
     <!-- Form Section -->
-    <form class="space-y-element-gap" onsubmit="event.preventDefault(); alert('Your message has been sent with love.');">
+    <form class="space-y-element-gap" id="message-form">
     <!-- Name Input (Optional but recommended for UX) -->
     <div class="group">
     <label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-2 transition-transform" for="guest-name">Your Name</label>
@@ -156,9 +156,54 @@
                 </p>
     </footer>
     </main>
+    <!-- Success Toast Notification -->
+    <div class="fixed top-[-100px] left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-[#5C7A52] text-on-primary py-4 px-6 rounded-xl shadow-2xl flex items-center justify-between z-[100] transition-all duration-500 ease-out" id="success-toast">
+    <span class="font-body-invitation text-sm">Your note has been sent. We'll treasure it forever. 🌿</span>
+    <button class="opacity-70 hover:opacity-100" type="button" onclick="hideToast()">
+    <span class="material-symbols-outlined">close</span>
+    </button>
+    </div>
     <!-- Global Footer (Mapped from JSON) -->
     
     <script>
+            const MESSAGE_URL = 'https://script.google.com/macros/s/AKfycbyb5Q9N_ATmllgKffb1u30giFm-UkO6-gqiEDI-EKqoCEKrV_RY9KRJjXOGy-NfZI_7/exec';
+
+            const messageForm = document.getElementById('message-form');
+            const guestNameInput = document.getElementById('guest-name');
+            const guestMessageInput = document.getElementById('guest-message');
+            const successToast = document.getElementById('success-toast');
+
+            messageForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = guestNameInput.value.trim();
+                const message = guestMessageInput.value.trim();
+
+                try {
+                    await fetch(MESSAGE_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'message', name, message })
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+
+                guestNameInput.value = '';
+                guestMessageInput.value = '';
+                showToast();
+            });
+
+            function showToast() {
+                successToast.style.top = '80px';
+                setTimeout(hideToast, 5000);
+            }
+
+            function hideToast() {
+                successToast.style.top = '-100px';
+            }
+
             // Subtle Parallax effect on parchment texture
             window.addEventListener('scroll', () => {
                 const scrolled = window.pageYOffset;
