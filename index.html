@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lemuel &amp; Jena Wedding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,400&amp;family=Montserrat:wght@300;500;600&amp;family=EB+Garamond:ital,wght@0,400;1,400&amp;family=Crimson+Pro:wght@300;400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#73796f",
+                        "primary-fixed-dim": "#afd0a1",
+                        "surface-container-low": "#f4f4ee",
+                        "tertiary-fixed": "#ffd8e6",
+                        "secondary-fixed": "#ffddb9",
+                        "surface": "#fafaf4",
+                        "on-tertiary-fixed-variant": "#65394d",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fafaf4",
+                        "inverse-surface": "#2f312d",
+                        "on-tertiary-container": "#ffcde0",
+                        "primary-fixed": "#caecbc",
+                        "on-surface": "#1a1c19",
+                        "on-primary-fixed-variant": "#324e2a",
+                        "tertiary": "#663a4e",
+                        "on-background": "#1a1c19",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#496640",
+                        "secondary-container": "#fdcf9d",
+                        "surface-variant": "#e3e3dd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#5f411a",
+                        "outline-variant": "#c3c8bd",
+                        "surface-container": "#eeeee8",
+                        "on-primary-fixed": "#062104",
+                        "on-tertiary-fixed": "#330e21",
+                        "on-primary-container": "#c2e4b4",
+                        "inverse-on-surface": "#f1f1eb",
+                        "on-secondary-container": "#78572f",
+                        "secondary-fixed-dim": "#ebbf8e",
+                        "surface-dim": "#dadad5",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "tertiary-container": "#815166",
+                        "on-secondary-fixed": "#2b1700",
+                        "surface-container-highest": "#e3e3dd",
+                        "inverse-primary": "#afd0a1",
+                        "primary-container": "#4a6741",
+                        "background": "#fafaf4",
+                        "on-error-container": "#93000a",
+                        "primary": "#334f2b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#f2b6ce",
+                        "secondary": "#795830",
+                        "surface-container-high": "#e9e8e3",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "1.5rem",
+                        "section-gap": "4rem",
+                        "page-margin": "2rem",
+                        "inline-padding": "1rem"
+                    },
+                    "fontFamily": {
+                        "body-invitation": ["EB Garamond", "serif"],
+                        "display-names-mobile": ["Crimson Pro", "serif"],
+                        "display-names": ["Crimson Pro", "serif"],
+                        "button-text": ["Montserrat", "sans-serif"],
+                        "headline-section": ["Playfair Display", "serif"],
+                        "label-caps": ["Montserrat", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-invitation": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-names-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.08em", "fontWeight": "300"}],
+                        "display-names": ["42px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "300"}],
+                        "button-text": ["13px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-section": ["24px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.5", "letterSpacing": "0.2em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .paper-texture {
+            background-color: #F5F0E8;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #rsvp-section {
+            scroll-margin-top: 4.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        .sway-animation {
+            animation: sway 7s ease-in-out infinite;
+            transform-origin: center top;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-1deg) translateX(-2px) scale(1.1); }
+            50% { transform: rotate(1deg) translateX(2px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-primary-fixed-dim">
+<!-- STICKY HEADER -->
+<header class="fixed top-0 left-0 w-full h-[56px] bg-[#4A6741] z-50 flex items-center justify-center transition-all duration-300">
+<img alt="L &amp; J Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNkUw3ZQuvUXnfpkJPcHKmg0HMZ7apAKdccFPzqWfceSBtVqlwldI22yEaKitBPoR8XX1CBZJzHEEmabzySkAAX7zrks-RmXMhnJwu8H7pFm9lGz10J6BpSPu9J8qgRzH5xdZKNmVsa1LCgDpppn2T7aVwu23fdI-V8OXq9LVxYgd4pnVGi5mFM7PhkbkVKPhYp80Z-JH0SaoU2L1gB6bMQ-VZ_K02F0dFA5eTRGncRSkism2wPeI0WBqbv1d_w8XzB9aIZNGIbKk"/>
+</header>
+<!-- HERO SECTION -->
+<section class="min-h-screen paper-texture flex flex-col items-center text-center px-page-margin relative overflow-hidden py-section-gap h-screen"><!-- Centered Content Wrapper -->
+<div class="flex-grow flex flex-col justify-center items-center w-full">
+<!-- Main Invitation Content -->
+<div class="z-10 flex flex-col items-center fade-in-up space-y-2" style="animation-delay: 0.2s;">
+<h1 class="font-display-names-mobile text-display-names-mobile text-primary mb-2 mt-12">
+      LEMUEL &amp; JENA
+    </h1>
+<p class="font-body-invitation italic text-on-surface-variant max-w-[280px]">
+      invite you to celebrate their civil wedding on
+    </p>
+<div class="flex flex-col space-y-2">
+<span class="font-label-caps text-label-caps text-on-surface tracking-[0.25em]">
+        SATURDAY, 11TH JULY 2026
+      </span>
+<span class="font-label-caps text-label-caps text-on-surface tracking-[0.2em]">
+        AT 12:30 IN THE AFTERNOON
+      </span>
+<span class="font-label-caps text-label-caps text-on-surface tracking-[0.2em]">
+        IN HIDDEN GARDEN CAFE
+      </span>
+<span class="font-label-caps text-label-caps text-on-surface tracking-[0.2em]">
+        TAGAYTAY CITY
+      </span>
+</div>
+</div>
+<!-- Olive Branch -->
+<div class="w-screen max-w-none relative fade-in-up mb-8 -mt-12" style="animation-delay: 0.6s;">
+<img alt="Botanical Olive Branch" class="sway-animation w-full h-auto object-contain transform scale-110 lg:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcXTWX5DrofTfrAUIKTFzbHexG5gSe-Z-8cAyGv8z3ktbw7Kp2kryrystYcDEvYMk1Aix61OH8B_jf1dNobOQcMO-pJzEBfpDtDDvnvemq4K21FPllKbVF3u7wNHldn-QvVFm8B6YiNB7xS478YEX_t_s6rjlcdC2l3VYPCa7b2H6jE2YRNiO2GLIx2S6BqsiCCv-Rt6RBb8e8Ybs224w11euRm2r7RuqQ4KFsaciFRphiwA3bmri84Qs6aCovbvxAst6RqPzLx6g"/>
+</div>
+</div>
+<!-- Bottom Prompt & Icon -->
+<div class="pb-12 flex flex-col items-center space-y-3 fade-in-up" style="animation-delay: 1s;">
+<p class="font-label-caps text-[10px] tracking-[0.3em] text-outline">
+    SWIPE DOWN FOR RSVP AND OTHER DETAILS
+  </p>
+<a href="#rsvp-section" aria-label="Scroll to RSVP and event details" class="hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[#4A6741] text-3xl scroll-indicator">
+    keyboard_double_arrow_down
+  </span>
+</a>
+</div></section>
+<!-- CONTENT PLACEHOLDER FOR CONTINUOUS SCROLL FLOW -->
+<section id="rsvp-section" class="bg-surface pt-section-gap pb-10 px-page-margin flex flex-col items-center text-center space-y-element-gap">
+<div class="w-full max-w-md fade-in-up"><h2 class="font-headline-section text-headline-section text-primary mb-6">RSVP &amp; EVENT DETAILS</h2><div class="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 w-full mb-12 text-[#1a1c19] items-start">
+<!-- Column 1: Ceremony -->
+<div class="flex flex-col items-center text-center space-y-1">
+<div class="font-label-caps text-[10px] tracking-widest text-[#4A6741] uppercase">CEREMONY</div>
+<div class="font-body-invitation text-on-surface">12:30 PM</div>
+<div class="text-[11px] text-outline italic">Please arrive 15 mins early</div>
+</div>
+<!-- Divider 1 -->
+<div class="w-[1px] h-12 bg-[#C4A882] self-center"></div>
+<!-- Column 2: Reception -->
+<div class="flex flex-col items-center text-center space-y-1">
+<div class="font-label-caps text-[10px] tracking-widest text-[#4A6741] uppercase">RECEPTION</div>
+<div class="font-body-invitation text-on-surface">2:00 PM</div>
+<div class="text-[11px] text-outline italic">Lunch to follow</div>
+</div>
+<!-- Divider 2 -->
+<div class="w-[1px] h-12 bg-[#C4A882] self-center"></div>
+<!-- Column 3: Attire -->
+<div class="flex flex-col items-center text-center space-y-1">
+<div class="font-label-caps text-[10px] tracking-widest text-[#4A6741] uppercase">ATTIRE</div>
+<div class="font-body-invitation text-on-surface">Smart casual</div>
+<div class="text-[11px] text-outline italic"><p class="" data-pm-slice="0 0 []">Linen, dresses, pressed shirts.</p></div>
+</div>
+</div><div class="grid grid-cols-1 gap-3 w-full"><div class="p-8 border-[0.5px] border-outline-variant bg-surface-container-low/50"><h3 class="font-label-caps text-label-caps mb-2">RSVP</h3><p class="font-body-invitation text-sm italic mb-4">Please kindly let us know by June 30th, 2026</p><a href="rsvp.html" class="flex items-center justify-center bg-primary text-on-primary font-button-text text-button-text px-8 py-4 w-full transition-transform active:scale-95 uppercase">Confirm Attendance</a></div><a class="flex items-center justify-center w-full h-[52px] border-2 border-[#4A6741] bg-transparent text-[#4A6741] font-button-text text-button-text uppercase tracking-widest rounded transition-all active:scale-95" href="message.html">
+  Got something to say to us?
+</a></div></div>
+</section>
+<!-- FOOTER FROM SHARED COMPONENTS -->
+<section class="bg-[#4A6741] py-20 px-page-margin text-on-primary">
+<div class="max-w-md mx-auto flex flex-col fade-in-up">
+<div class="space-y-8">
+<div class="space-y-4">
+<h2 class="font-headline-section text-xl tracking-wide text-on-primary" data-stitch-orig-opacity="0"><span class="" style="font-weight: normal;">Our Story</span></h2>
+<div class="font-body-invitation text-sm leading-[1.75] space-y-4">
+<p class="">We didn't follow the usual timeline.</p>
+<p class="">There were no monthsaries to count, no grand bucket lists to complete, and no checklist of milestones we felt we had to reach before deciding on forever.</p>
+<p class="">Instead, we found each other in the ordinary. In long conversations, in shared jokes, in spicy food, and in quiet moments. Along the way, we discovered that we shared the same values, the same goals, and a quiet understanding of the life we wanted to build and over time, that simple truth grew into a certainty that we had found something worth keeping.</p>
+<p class="">Eventually, that certainty led to a decision.</p>
+</div>
+</div>
+<div class="space-y-4">
+<h2 class="font-headline-section text-xl tracking-wide text-on-primary"><span class="" style="font-weight: normal;">Lem / Jen / Dary</span></h2>
+<div class="font-body-invitation text-sm leading-[1.75] space-y-4">
+<p class="">LemJendary began as a play on names and a familiar word, drawn from 'legendary,' but made our own. In many ways, it reflects how remarkable it feels that, in this life, we found each other.</p>
+<p class="">Lem stands for Lemuel, Jen for Jena, and dary serves as a meaning of something precious, a treasure we have slowly come to recognize in the life we are building together, planned or unplanned.</p>
+<p class="">The name came to represent what we wanted this chapter of our lives to hold: a shared name, a shared story, and something we both recognize as a blessing entrusted to us by God.</p>
+<p class="">What began as a simple word eventually became a small way of naming the chapter we now share.</p>
+</div>
+</div>
+</div>
+<div class="mt-6 space-y-4">
+<div class="font-body-invitation text-sm leading-[1.75]">
+<p class="">And now, we've come to this moment.</p>
+<p class="">We cannot wait to celebrate our special day with you!</p>
+</div>
+<div class="flex justify-end">
+<div class="w-48 opacity-90 flex justify-end"><img alt="Signature" class="w-full h-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3fTPjDsaNRFOoUH71jNd1uoKS3rNO-LAIjz-CIvYyimGIziz22-wjX_SxndJInhWNAnuj5yStgmkZWQ0OvesCXAFGpEuYPj8okQvXW-m_EvC6e9TH_AlO6-ld5dluuwQS6AShFKc5d3U6-qnIKna6ypav9oSV7mcrFaKbSnQXvdkQYYJUj8v1HIsATRz8ibIwi3ovu8XfueJA_xlmJXeWQn8-aJLXdbPuHuuXbZhK0hELMGzV44NdgD2X3X3dwM7fBU_MpLdlMs92"/></div>
+</div>
+</div>
+</div>
+</section><footer class="bg-[#FAF6EE] w-full py-12 flex flex-col items-center justify-center text-center px-page-margin">
+<div class="w-full max-w-md mx-auto flex flex-col items-center space-y-6">
+<div class="flex flex-col items-center space-y-4">
+<span class="font-label-caps text-[10px] tracking-widest text-[#4A6741] uppercase mb-2">WITH LOVE,</span><h2 class="font-display-names text-4xl text-[#4A6741]">Lemuel &amp; Jena</h2>
+<div class="flex flex-col items-center space-y-2">
+<span class="font-label-caps text-[9px] text-[#4A6741]/50 tracking-[0.4em] uppercase mt-4">© 2026 LEMJENDARY. All rights reserved.</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for the header visibility on scroll
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll <= 0) {
+                header.classList.remove('shadow-lg');
+                return;
+            }
+            
+            if (currentScroll > lastScroll) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
+                header.classList.add('shadow-md');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => observer.observe(el));
+    </script>
+</body></html>

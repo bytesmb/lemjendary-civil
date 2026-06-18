@@ -1,0 +1,309 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RSVP — Lemuel &amp; Jena</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&amp;family=Montserrat:wght@400;500;600&amp;family=EB+Garamond:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&amp;family=Montserrat:wght@100..900&amp;family=Playfair+Display:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e8e3",
+                    "surface-tint": "#496640",
+                    "primary-container": "#4a6741",
+                    "inverse-surface": "#2f312d",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#f2b6ce",
+                    "outline": "#73796f",
+                    "on-secondary-fixed": "#2b1700",
+                    "surface-dim": "#dadad5",
+                    "primary-fixed-dim": "#afd0a1",
+                    "on-secondary-container": "#78572f",
+                    "on-primary-container": "#c2e4b4",
+                    "secondary-fixed": "#ffddb9",
+                    "secondary": "#795830",
+                    "on-background": "#1a1c19",
+                    "on-surface": "#1a1c19",
+                    "tertiary": "#663a4e",
+                    "on-error-container": "#93000a",
+                    "surface": "#fafaf4",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#fafaf4",
+                    "primary-fixed": "#caecbc",
+                    "on-surface-variant": "#434840",
+                    "on-primary-fixed": "#062104",
+                    "surface-bright": "#fafaf4",
+                    "surface-container": "#eeeee8",
+                    "on-tertiary-container": "#ffcde0",
+                    "surface-variant": "#e3e3dd",
+                    "surface-container-highest": "#e3e3dd",
+                    "inverse-primary": "#afd0a1",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#330e21",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#ebbf8e",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c8bd",
+                    "tertiary-fixed": "#ffd8e6",
+                    "on-tertiary-fixed-variant": "#65394d",
+                    "primary": "#334f2b",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#5f411a",
+                    "on-primary-fixed-variant": "#324e2a",
+                    "tertiary-container": "#815166",
+                    "surface-container-low": "#f4f4ee",
+                    "secondary-container": "#fdcf9d",
+                    "inverse-on-surface": "#f1f1eb",
+                    "parchment": "#FAF6EE",
+                    "linen": "#F0E8D8",
+                    "flax": "#C4A882",
+                    "forest": "#4A6741"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "4rem",
+                    "inline-padding": "1rem",
+                    "element-gap": "1.5rem",
+                    "page-margin": "2rem"
+            },
+            "fontFamily": {
+                    "label-caps": ["Montserrat"],
+                    "headline-section": ["Playfair Display"],
+                    "display-names": ["Playfair Display"],
+                    "button-text": ["Montserrat"],
+                    "body-invitation": ["EB Garamond"],
+                    "display-names-mobile": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "1.5", "letterSpacing": "0.2em", "fontWeight": "500"}],
+                    "headline-section": ["24px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                    "display-names": ["42px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "300"}],
+                    "button-text": ["13px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                    "body-invitation": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-names-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.08em", "fontWeight": "300"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FAF6EE; /* Explicit parchment color */
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for dropdown */
+        .dropdown-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .dropdown-scroll::-webkit-scrollbar-track {
+            background: #F0E8D8;
+        }
+        .dropdown-scroll::-webkit-scrollbar-thumb {
+            background: #C4A882;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-invitation overflow-x-hidden">
+<!-- Top AppBar (Simulated Context) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-center items-center h-16 bg-forest shadow-sm">
+  <div class="flex items-center justify-center">
+    <a href="index.html"><img alt="LJ Monogram" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa1vQq97qu70fFnxdcYmrfVO30-Fa88E875M5wp0HWRQXYYqIH7q_sJcuGU9__cTcSPqnL3zVUqmkj80IEn8umd85odAUACJYauoC6tygjLQ_jl_TexcL1mjvEabvFnwy8F7lnkKlXpzdpneLDzg6euJ6WIFF3dsqt9r9emvJ13Rk2ohrFbLEmMgJmhbp-lfgtcl5BJv6O3oDckyisHsmfrDxC8GA73XhwrDXS_yelHGo0nt8KLzp2FYADUZx6lu8s0iB4Px_khGMtkvg"></a>
+  </div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center pt-24 px-8 pb-page-margin max-w-md mx-auto w-full"><div class="w-full flex justify-start mb-4"><a href="index.html" class="font-body-invitation text-sm text-forest flex items-center h-[48px] hover:opacity-80 transition-opacity"><svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="#4A6741" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg><span class="">Back</span></a></div>
+<!-- Typography Section -->
+<div class="text-center mb-5">
+<h1 class="font-display-names-mobile text-display-names-mobile text-forest">Who's joining us?</h1>
+</div>
+<div class="w-full relative space-y-2" id="search-container">
+<p class="font-body-invitation text-[14px] text-forest italic text-center mb-5">Our celebration is intimate — just 30 of our favourite people. If your name isn't on the list, we're so grateful for your love and will celebrate with you another time.</p>
+<p id="selection-hint" class="font-body-invitation text-sm text-on-surface-variant opacity-70 text-center">Type your name and select it when it appears.</p>
+<div class="relative">
+<input autocomplete="off" class="w-full h-[52px] bg-linen border border-flax rounded-lg px-4 text-on-surface font-body-invitation focus:ring-1 focus:ring-forest focus:border-forest outline-none transition-all placeholder:text-outline/50 caret-forest" id="guest-search" placeholder="Start typing your name..." type="text">
+<!-- Dropdown List -->
+<div class="hidden absolute top-[56px] left-0 w-full bg-linen border border-flax rounded-lg shadow-sm z-40 overflow-hidden" id="dropdown-list">
+<ul class="max-h-[260px] overflow-y-auto dropdown-scroll" id="names-ul">
+<!-- Javascript will populate this -->
+</ul>
+</div>
+</div>
+<p class="hidden font-body-invitation text-sm text-[#8B5E3C] text-center mt-3" id="no-match-message">That name isn't on our list. If something seems off, just message us — we've got you.</p>
+</div>
+<!-- Spacer -->
+
+<!-- Confirm Button Area -->
+<div class="w-full pt-6">
+<button class="w-full h-[52px] bg-forest text-parchment font-button-text text-button-text rounded-lg uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]" disabled="" id="confirm-btn">
+                Yes, I'll be there!
+            </button>
+</div>
+<div class="mt-6 text-center space-y-1">
+  <p class="font-body-invitation text-sm text-on-surface-variant opacity-80">Have a question or need to make changes?</p>
+  <p class="font-body-invitation text-sm text-on-surface-variant opacity-80">We're just one message away.</p>
+</div><div class="w-full mt-12 space-y-8">
+  <div class="w-full h-px bg-flax/40"></div>
+  
+  <div class="space-y-4">
+    <h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase text-center">Warm wishes &amp; words that will make us cry</h2>
+    <textarea class="w-full min-h-[120px] bg-linen border border-flax rounded-lg p-4 text-on-surface font-body-invitation focus:ring-1 focus:ring-forest focus:border-forest outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="Say anything. We mean it."></textarea>
+    <button class="w-full h-[52px] bg-forest text-parchment font-button-text text-button-text rounded-lg uppercase transition-all duration-300 hover:opacity-90 active:scale-[0.98]">
+      Leave a Note
+    </button>
+    <p class="font-body-invitation text-sm text-on-surface-variant opacity-70 text-center pt-1">
+    This is completely optional — skip anytime.
+  </p>
+  </div>
+</div></main>
+<!-- Success Toast Notification -->
+<div class="fixed bottom-[-100px] left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-primary text-on-primary py-4 px-6 rounded-xl shadow-2xl flex items-center justify-between z-[100] transition-all duration-500 ease-out" id="success-toast">
+<span class="font-body-invitation text-sm">You're confirmed! We can't wait to see you. 🌿</span>
+<button class="opacity-70 hover:opacity-100" onclick="hideToast()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- JavaScript Logic -->
+<script>
+        const guestNames = [
+            { name: 'Vince', confirmed: false },
+            { name: 'Vivian', confirmed: false },
+            { name: 'Marco', confirmed: false },
+            { name: 'Maria', confirmed: false },
+            { name: 'Carlos', confirmed: false },
+            { name: 'Carmen', confirmed: false },
+            { name: 'Jose', confirmed: true },
+            { name: 'Josefa', confirmed: false },
+            { name: 'Ana', confirmed: false },
+            { name: 'Andrea', confirmed: false },
+            { name: 'Luis', confirmed: false },
+            { name: 'Luisa', confirmed: false },
+            { name: 'David', confirmed: false },
+            { name: 'Diana', confirmed: false }
+        ];
+
+        const searchInput = document.getElementById('guest-search');
+        const dropdownList = document.getElementById('dropdown-list');
+        const namesUl = document.getElementById('names-ul');
+        const confirmBtn = document.getElementById('confirm-btn');
+        const successToast = document.getElementById('success-toast');
+        const noMatchMessage = document.getElementById('no-match-message');
+        const hintText = document.getElementById('selection-hint');
+        
+        let selectedName = null;
+
+        function updateNoMatchMessage(filter) {
+            const trimmed = filter.trim();
+            const hasMatches = guestNames.some(g =>
+                g.name.toLowerCase().includes(trimmed.toLowerCase())
+            );
+            const showError = trimmed.length > 0 && !hasMatches;
+            noMatchMessage.classList.toggle('hidden', !showError);
+            if (hintText) {
+                hintText.classList.toggle('hidden', showError);
+            }
+        }
+
+        function renderList(filter = '') {
+            namesUl.innerHTML = '';
+            const filtered = guestNames.filter(g => 
+                g.name.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            updateNoMatchMessage(filter);
+
+            if (filtered.length === 0) {
+                dropdownList.classList.add('hidden');
+                return;
+            }
+
+            filtered.forEach(guest => {
+                const li = document.createElement('li');
+                li.className = `flex items-center justify-between px-4 h-[52px] border-b border-flax/20 cursor-pointer transition-colors ${guest.confirmed ? 'opacity-50 cursor-not-allowed bg-surface-container-low' : 'hover:bg-flax/10 active:bg-flax/20'}`;
+                
+                li.innerHTML = `
+                    <span class="font-body-invitation text-inverse-surface ${guest.confirmed ? 'text-outline' : ''}">${guest.name}</span>
+                    ${guest.confirmed ? '<span class="text-xs text-primary/70 font-medium italic">Attending ✓</span>' : ''}
+                `;
+
+                if (!guest.confirmed) {
+                    li.onclick = () => selectGuest(guest.name);
+                }
+                namesUl.appendChild(li);
+            });
+
+            dropdownList.classList.remove('hidden');
+        }
+
+        function selectGuest(name) {
+            searchInput.value = name;
+            selectedName = name;
+            dropdownList.classList.add('hidden');
+            confirmBtn.disabled = false;
+            updateNoMatchMessage(name);
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            selectedName = null;
+            confirmBtn.disabled = true;
+            renderList(e.target.value);
+        });
+
+        searchInput.addEventListener('focus', () => {
+            renderList(searchInput.value);
+        });
+
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('search-container').contains(e.target)) {
+                dropdownList.classList.add('hidden');
+            }
+        });
+
+        confirmBtn.addEventListener('click', () => {
+            if (!selectedName) return;
+
+            // Update data state
+            const guestIndex = guestNames.findIndex(g => g.name === selectedName);
+            if (guestIndex !== -1) {
+                guestNames[guestIndex].confirmed = true;
+            }
+
+            // Success Visual Feedback
+            showToast();
+            
+            // Reset UI
+            searchInput.value = '';
+            confirmBtn.disabled = true;
+            selectedName = null;
+            updateNoMatchMessage('');
+        });
+
+        function showToast() {
+            successToast.style.bottom = '32px';
+            setTimeout(hideToast, 5000);
+        }
+
+        function hideToast() {
+            successToast.style.bottom = '-100px';
+        }
+    </script>
+
+
+
+
+
+</body></html>
