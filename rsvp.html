@@ -134,7 +134,7 @@
 <p class="font-body-invitation text-[14px] text-forest italic text-center mb-5">Our celebration is intimate — just 30 of our favourite people. If your name isn't on the list, we're so grateful for your love and will celebrate with you another time.</p>
 <p id="selection-hint" class="font-body-invitation text-sm text-on-surface-variant opacity-70 text-center">Type your name and select it when it appears.</p>
 <div class="relative">
-<input autocomplete="off" class="w-full h-[52px] bg-linen border border-flax rounded-lg px-4 text-on-surface font-body-invitation focus:ring-1 focus:ring-forest focus:border-forest outline-none transition-all placeholder:text-outline/50 caret-forest" id="guest-search" placeholder="Start typing your name..." type="text">
+<input autocomplete="off" class="w-full h-[52px] bg-linen border border-flax rounded-lg px-4 text-on-surface font-body-invitation focus:ring-1 focus:ring-forest focus:border-forest outline-none transition-all placeholder:text-outline/50 caret-forest disabled:opacity-50 disabled:cursor-not-allowed" disabled id="guest-search" placeholder="Start typing your name..." type="text">
 <!-- Dropdown List -->
 <div class="hidden absolute top-[56px] left-0 w-full bg-linen border border-flax rounded-lg shadow-sm z-40 overflow-hidden" id="dropdown-list">
 <ul class="max-h-[260px] overflow-y-auto dropdown-scroll" id="names-ul">
@@ -142,6 +142,8 @@
 </ul>
 </div>
 </div>
+<p class="font-body-invitation text-sm text-on-surface-variant opacity-60 text-center italic" id="guest-list-loading">Loading guest list…</p>
+<p class="hidden font-body-invitation text-sm text-[#8B5E3C] text-center mt-3" id="guest-list-error">Having trouble loading the guest list. Please refresh the page.</p>
 <p class="hidden font-body-invitation text-sm text-[#8B5E3C] text-center mt-3" id="no-match-message">That name isn't on our list. If something seems off, just message us — we've got you.</p>
 </div>
 <!-- Spacer -->
@@ -178,22 +180,11 @@
 </div>
 <!-- JavaScript Logic -->
 <script>
-        const guestNames = [
-            { name: 'Vince', confirmed: false },
-            { name: 'Vivian', confirmed: false },
-            { name: 'Marco', confirmed: false },
-            { name: 'Maria', confirmed: false },
-            { name: 'Carlos', confirmed: false },
-            { name: 'Carmen', confirmed: false },
-            { name: 'Jose', confirmed: true },
-            { name: 'Josefa', confirmed: false },
-            { name: 'Ana', confirmed: false },
-            { name: 'Andrea', confirmed: false },
-            { name: 'Luis', confirmed: false },
-            { name: 'Luisa', confirmed: false },
-            { name: 'David', confirmed: false },
-            { name: 'Diana', confirmed: false }
-        ];
+        const GUEST_LIST_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSqoPGhvujDRoOA3ZMWTJIhyIyri0_01jUJwIOqLQh3phSLv_DbIWyb86vmNxABZVFaXBm3NyabJWW1/pub?gid=0&single=true&output=csv';
+
+        let guestNames = [];
+        let guestListLoaded = false;
+        let guestListFailed = false;
 
         const searchInput = document.getElementById('guest-search');
         const dropdownList = document.getElementById('dropdown-list');
@@ -202,10 +193,102 @@
         const successToast = document.getElementById('success-toast');
         const noMatchMessage = document.getElementById('no-match-message');
         const hintText = document.getElementById('selection-hint');
-        
+        const guestListLoading = document.getElementById('guest-list-loading');
+        const guestListError = document.getElementById('guest-list-error');
+
         let selectedName = null;
 
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    if (inQuotes && line[i + 1] === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current);
+            return result;
+        }
+
+        function isConfirmed(value) {
+            const normalized = (value || '').trim().toUpperCase();
+            return normalized === 'YES' || normalized === 'TRUE';
+        }
+
+        function parseGuestCSV(text) {
+            const lines = text.trim().split(/\r?\n/);
+            if (lines.length < 2) return [];
+
+            const headers = parseCSVLine(lines[0]).map(h => h.trim().toUpperCase());
+            const nameIndex = headers.indexOf('NAME');
+            const confirmedIndex = headers.indexOf('CONFIRMED');
+
+            if (nameIndex === -1) return [];
+
+            return lines.slice(1).map(line => {
+                const columns = parseCSVLine(line);
+                return {
+                    name: (columns[nameIndex] || '').trim(),
+                    confirmed: confirmedIndex !== -1 && isConfirmed(columns[confirmedIndex])
+                };
+            }).filter(guest => guest.name);
+        }
+
+        function setLoadingState(isLoading) {
+            guestListLoading.classList.toggle('hidden', !isLoading);
+            searchInput.disabled = isLoading || guestListFailed || !guestListLoaded;
+            if (isLoading) {
+                searchInput.placeholder = 'Loading guest list…';
+            } else if (guestListLoaded) {
+                searchInput.placeholder = 'Start typing your name…';
+            }
+        }
+
+        function showLoadError() {
+            guestListFailed = true;
+            guestListLoading.classList.add('hidden');
+            guestListError.classList.remove('hidden');
+            hintText.classList.add('hidden');
+            searchInput.disabled = true;
+            confirmBtn.disabled = true;
+            dropdownList.classList.add('hidden');
+        }
+
+        async function loadGuestNames() {
+            setLoadingState(true);
+
+            try {
+                const response = await fetch(GUEST_LIST_URL);
+                if (!response.ok) throw new Error('Failed to fetch guest list');
+
+                guestNames = parseGuestCSV(await response.text());
+                if (guestNames.length === 0) throw new Error('Guest list is empty');
+
+                guestListLoaded = true;
+                setLoadingState(false);
+                guestListLoading.classList.add('hidden');
+                searchInput.disabled = false;
+            } catch (error) {
+                showLoadError();
+            }
+        }
+
         function updateNoMatchMessage(filter) {
+            if (!guestListLoaded) return;
+
             const trimmed = filter.trim();
             const hasMatches = guestNames.some(g =>
                 g.name.toLowerCase().includes(trimmed.toLowerCase())
@@ -218,8 +301,10 @@
         }
 
         function renderList(filter = '') {
+            if (!guestListLoaded) return;
+
             namesUl.innerHTML = '';
-            const filtered = guestNames.filter(g => 
+            const filtered = guestNames.filter(g =>
                 g.name.toLowerCase().includes(filter.toLowerCase())
             );
 
@@ -233,7 +318,7 @@
             filtered.forEach(guest => {
                 const li = document.createElement('li');
                 li.className = `flex items-center justify-between px-4 h-[52px] border-b border-flax/20 cursor-pointer transition-colors ${guest.confirmed ? 'opacity-50 cursor-not-allowed bg-surface-container-low' : 'hover:bg-flax/10 active:bg-flax/20'}`;
-                
+
                 li.innerHTML = `
                     <span class="font-body-invitation text-inverse-surface ${guest.confirmed ? 'text-outline' : ''}">${guest.name}</span>
                     ${guest.confirmed ? '<span class="text-xs text-primary/70 font-medium italic">Attending ✓</span>' : ''}
@@ -263,10 +348,11 @@
         });
 
         searchInput.addEventListener('focus', () => {
-            renderList(searchInput.value);
+            if (guestListLoaded) {
+                renderList(searchInput.value);
+            }
         });
 
-        // Hide dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!document.getElementById('search-container').contains(e.target)) {
                 dropdownList.classList.add('hidden');
@@ -276,16 +362,13 @@
         confirmBtn.addEventListener('click', () => {
             if (!selectedName) return;
 
-            // Update data state
             const guestIndex = guestNames.findIndex(g => g.name === selectedName);
             if (guestIndex !== -1) {
                 guestNames[guestIndex].confirmed = true;
             }
 
-            // Success Visual Feedback
             showToast();
-            
-            // Reset UI
+
             searchInput.value = '';
             confirmBtn.disabled = true;
             selectedName = null;
@@ -300,6 +383,8 @@
         function hideToast() {
             successToast.style.bottom = '-100px';
         }
+
+        loadGuestNames();
     </script>
 
 
