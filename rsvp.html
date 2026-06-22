@@ -149,9 +149,12 @@
 <!-- Spacer -->
 
 <!-- Confirm Button Area -->
-<div class="w-full pt-6">
+<div class="w-full pt-6 space-y-3">
 <button class="w-full h-[52px] bg-forest text-parchment font-button-text text-button-text rounded-lg uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]" disabled="" id="confirm-btn">
                 Yes, I'll be there!
+            </button>
+<button class="w-full h-[52px] border-2 border-[#4A6741] bg-transparent text-[#4A6741] font-button-text text-button-text rounded-lg uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98]" disabled="" id="decline-btn">
+                Can't make it
             </button>
 </div>
 <div class="mt-6 text-center space-y-1">
@@ -166,7 +169,7 @@
 </main>
 <!-- Success Toast Notification -->
 <div class="fixed top-[-100px] left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-[#5C7A52] text-on-primary py-4 px-6 rounded-xl shadow-2xl flex items-center justify-between z-[100] transition-all duration-500 ease-out" id="success-toast">
-<span class="font-body-invitation text-sm">You're confirmed! We can't wait to see you. 🌿</span>
+<span class="font-body-invitation text-sm" id="toast-message">You're confirmed! We can't wait to see you. 🌿</span>
 <button class="opacity-70 hover:opacity-100" onclick="hideToast()">
 <span class="material-symbols-outlined">close</span>
 </button>
@@ -174,7 +177,7 @@
 <!-- JavaScript Logic -->
 <script>
         const GUEST_LIST_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSqoPGhvujDRoOA3ZMWTJIhyIyri0_01jUJwIOqLQh3phSLv_DbIWyb86vmNxABZVFaXBm3NyabJWW1/pub?gid=0&single=true&output=csv';
-        const CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbyb5Q9N_ATmllgKffb1u30giFm-UkO6-gqiEDI-EKqoCEKrV_RY9KRJjXOGy-NfZI_7/exec';
+        const CONFIRM_URL = 'https://script.google.com/macros/s/AKfycbx_jixZBTf3ZrUdG730CUYoT2DMvoYvkAaksYvgXfv0xwWfPf3onnD-rzAgbkEOVYlG/exec';
 
         let guestNames = [];
         let guestListLoaded = false;
@@ -184,7 +187,9 @@
         const dropdownList = document.getElementById('dropdown-list');
         const namesUl = document.getElementById('names-ul');
         const confirmBtn = document.getElementById('confirm-btn');
+        const declineBtn = document.getElementById('decline-btn');
         const successToast = document.getElementById('success-toast');
+        const toastMessage = document.getElementById('toast-message');
         const noMatchMessage = document.getElementById('no-match-message');
         const hintText = document.getElementById('selection-hint');
         const guestListLoading = document.getElementById('guest-list-loading');
@@ -222,6 +227,26 @@
             return normalized === 'YES' || normalized === 'TRUE';
         }
 
+        function isDeclined(value) {
+            const normalized = (value || '').trim().toUpperCase();
+            return normalized === 'NO' || normalized === 'FALSE';
+        }
+
+        function getGuestStatus(value) {
+            if (isConfirmed(value)) return 'confirmed';
+            if (isDeclined(value)) return 'declined';
+            return 'available';
+        }
+
+        function isGuestUnavailable(guest) {
+            return guest.status === 'confirmed' || guest.status === 'declined';
+        }
+
+        function setActionButtonsEnabled(enabled) {
+            confirmBtn.disabled = !enabled;
+            declineBtn.disabled = !enabled;
+        }
+
         function parseGuestCSV(text) {
             const lines = text.trim().split(/\r?\n/);
             if (lines.length < 2) return [];
@@ -236,7 +261,7 @@
                 const columns = parseCSVLine(line);
                 return {
                     name: (columns[nameIndex] || '').trim(),
-                    confirmed: confirmedIndex !== -1 && isConfirmed(columns[confirmedIndex])
+                    status: confirmedIndex !== -1 ? getGuestStatus(columns[confirmedIndex]) : 'available'
                 };
             }).filter(guest => guest.name);
         }
@@ -257,7 +282,7 @@
             guestListError.classList.remove('hidden');
             hintText.classList.add('hidden');
             searchInput.disabled = true;
-            confirmBtn.disabled = true;
+            setActionButtonsEnabled(false);
             dropdownList.classList.add('hidden');
         }
 
@@ -311,14 +336,21 @@
 
             filtered.forEach(guest => {
                 const li = document.createElement('li');
-                li.className = `flex items-center justify-between px-4 h-[52px] border-b border-flax/20 cursor-pointer transition-colors ${guest.confirmed ? 'opacity-50 cursor-not-allowed bg-surface-container-low' : 'hover:bg-flax/10 active:bg-flax/20'}`;
+                const unavailable = isGuestUnavailable(guest);
+                li.className = `flex items-center justify-between px-4 h-[52px] border-b border-flax/20 cursor-pointer transition-colors ${unavailable ? 'opacity-50 cursor-not-allowed bg-surface-container-low' : 'hover:bg-flax/10 active:bg-flax/20'}`;
+
+                const statusLabel = guest.status === 'confirmed'
+                    ? '<span class="text-xs text-primary/70 font-medium italic">Attending ✓</span>'
+                    : guest.status === 'declined'
+                        ? '<span class="text-xs text-on-surface-variant font-medium italic">Can\'t make it</span>'
+                        : '';
 
                 li.innerHTML = `
-                    <span class="font-body-invitation text-inverse-surface ${guest.confirmed ? 'text-outline' : ''}">${guest.name}</span>
-                    ${guest.confirmed ? '<span class="text-xs text-primary/70 font-medium italic">Attending ✓</span>' : ''}
+                    <span class="font-body-invitation text-inverse-surface ${unavailable ? 'text-outline' : ''}">${guest.name}</span>
+                    ${statusLabel}
                 `;
 
-                if (!guest.confirmed) {
+                if (!unavailable) {
                     li.onclick = () => selectGuest(guest.name);
                 }
                 namesUl.appendChild(li);
@@ -331,13 +363,13 @@
             searchInput.value = name;
             selectedName = name;
             dropdownList.classList.add('hidden');
-            confirmBtn.disabled = false;
+            setActionButtonsEnabled(true);
             updateNoMatchMessage(name);
         }
 
         searchInput.addEventListener('input', (e) => {
             selectedName = null;
-            confirmBtn.disabled = true;
+            setActionButtonsEnabled(false);
             renderList(e.target.value);
         });
 
@@ -356,36 +388,56 @@
         confirmBtn.addEventListener('click', () => {
             if (!selectedName) return;
 
-            const confirmedName = selectedName;
-            const guestIndex = guestNames.findIndex(g => g.name === confirmedName);
+            const guestName = selectedName;
+            const guestIndex = guestNames.findIndex(g => g.name === guestName);
             if (guestIndex !== -1) {
-                guestNames[guestIndex].confirmed = true;
+                guestNames[guestIndex].status = 'confirmed';
             }
 
-            showToast();
+            showToast("You're confirmed! We can't wait to see you. 🌿");
 
             searchInput.value = '';
-            confirmBtn.disabled = true;
+            setActionButtonsEnabled(false);
             selectedName = null;
             updateNoMatchMessage('');
 
-            submitConfirmation(confirmedName);
+            submitGuestAction(guestName, 'confirm');
         });
 
-        async function submitConfirmation(name) {
+        declineBtn.addEventListener('click', () => {
+            if (!selectedName) return;
+
+            const guestName = selectedName;
+            const guestIndex = guestNames.findIndex(g => g.name === guestName);
+            if (guestIndex !== -1) {
+                guestNames[guestIndex].status = 'declined';
+            }
+
+            showToast("Thank you for letting us know. We'll miss you. 🌿");
+
+            searchInput.value = '';
+            setActionButtonsEnabled(false);
+            selectedName = null;
+            updateNoMatchMessage('');
+
+            submitGuestAction(guestName, 'decline');
+        });
+
+        async function submitGuestAction(name, action) {
             try {
                 await fetch(CONFIRM_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, action: 'confirm' })
+                    body: JSON.stringify({ name, action })
                 });
             } catch (error) {
                 console.error(error);
             }
         }
 
-        function showToast() {
+        function showToast(message) {
+            toastMessage.textContent = message;
             successToast.style.top = '80px';
             setTimeout(hideToast, 5000);
         }
